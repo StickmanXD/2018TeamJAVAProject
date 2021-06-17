@@ -1,0 +1,184 @@
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Random;
+
+import javax.swing.*;
+
+@SuppressWarnings("serial")
+class JPanelResult extends JPanel{
+	private JPanelTop win;
+	private JButton Next;
+	private JLabel Job,JobT,Item,ItemT,C,CT;
+	private JButton Menu;
+	Random r = new Random();
+	private int a = r.nextInt(19)+1;
+	private int b = r.nextInt(19)+1;
+	private ImageIcon menuBimage = new ImageIcon("D:\\TP\\ETC\\menu.png");
+	private ImageIcon mixBimage = new ImageIcon("D:\\TP\\ETC\\조합버튼.png");
+	private ImageIcon image = new ImageIcon("D:\\TP\\ETC\\나머지배경화면.png");
+	private Image imagescale = image.getImage().getScaledInstance(1920,1040, Image.SCALE_DEFAULT);
+	private ImageIcon image2 = new ImageIcon(imagescale);
+	private ArrayList<ImageIcon> JobImage = new ArrayList<>();
+	private ArrayList<ImageIcon> JobTImage = new ArrayList<>();
+	private ArrayList<ImageIcon> ItemImage = new ArrayList<>();
+	private ArrayList<ImageIcon> ItemTImage = new ArrayList<>();
+	private ArrayList<ImageIcon> CImage = new ArrayList<>();
+	private ArrayList<ImageIcon> CTImage = new ArrayList<>();
+	public void paintComponent(Graphics g) {
+		g.drawImage(image2.getImage(), 0,0,null);
+		setOpaque(false);
+		super.paintComponent(g);
+	}
+	public JPanelResult(JPanelTop win){
+		setLayout(null);
+		this.win = win;
+		
+		for(int i = 1; i <=20; i++) {
+			ImageIcon image = new ImageIcon("D:\\TP\\Job\\"+i+".png");
+			Image scaledimage = image.getImage().getScaledInstance(300, 400, Image.SCALE_DEFAULT);
+			ImageIcon scaledimageIcon = new ImageIcon(scaledimage);
+			JobImage.add(scaledimageIcon);
+		}
+		for(int i = 1; i <=20; i++) {
+			ImageIcon image = new ImageIcon("D:\\TP\\Job\\t"+i+".png");
+			Image scaledimage = image.getImage().getScaledInstance(500, 400, Image.SCALE_DEFAULT);
+			ImageIcon scaledimageIcon = new ImageIcon(scaledimage);
+			JobTImage.add(scaledimageIcon);
+		}
+		for(int i = 1; i <=20; i++) {
+			ImageIcon image = new ImageIcon("D:\\TP\\Item\\"+i+".png");
+			Image scaledimage = image.getImage().getScaledInstance(300, 400, Image.SCALE_DEFAULT);
+			ImageIcon scaledimageIcon = new ImageIcon(scaledimage);
+			ItemImage.add(scaledimageIcon);
+		}
+		for(int i = 1; i <=20; i++) {
+			ImageIcon image = new ImageIcon("D:\\TP\\Item\\t"+i+".png");
+			Image scaledimage = image.getImage().getScaledInstance(500, 400, Image.SCALE_DEFAULT);
+			ImageIcon scaledimageIcon = new ImageIcon(scaledimage);
+			ItemTImage.add(scaledimageIcon);
+		}
+		
+		Job = new JLabel(JobImage.get(a));
+		Job.setLocation(200,100);
+		Job.setSize(300,400);
+		JobT = new JLabel(JobTImage.get(a));
+		JobT.setLocation(550,100);
+		JobT.setSize(500,400);
+		
+		
+		Item = new JLabel(ItemImage.get(b));
+		Item.setLocation(200,500);
+		Item.setSize(300,400);
+		ItemT = new JLabel(ItemTImage.get(b));
+		ItemT.setLocation(550,500);
+		ItemT.setSize(500,400);
+		
+		Next = new JButton(mixBimage);
+		Next.setLocation(1300,500);
+		Next.setSize(500,400);
+		Next.setVisible(true);
+		Next.setBorderPainted(false);
+		Next.setFocusPainted(false);
+		Next.setContentAreaFilled(false);
+		Next.addActionListener(new Next());
+		
+		Menu=new JButton(menuBimage);
+		Menu.setSize(200,80);
+		Menu.setLocation(1500,500);
+		Menu.addActionListener(new Menu());
+		Menu.setVisible(false);
+		Menu.setBorderPainted(false);
+		Menu.setFocusPainted(false);
+		Menu.setContentAreaFilled(false);
+		
+		add(Job);
+		add(JobT);
+		add(Item);
+		add(ItemT);
+		add(Next);
+		add(Menu);
+		for(int i=1;i<=20;i++) {
+				for(int j=1;j<=20;j++) {
+					if(i==a+1) {
+						if(j==b+1) {
+						ImageIcon image = new ImageIcon("D:\\TP\\Mix\\"+i+"+"+j+".png");
+						Image Cscaled = image.getImage().getScaledInstance(500, 600, Image.SCALE_DEFAULT);
+						ImageIcon CscaledImage = new ImageIcon(Cscaled);
+						CImage.add(CscaledImage);
+						ImageIcon image2 = new ImageIcon("D:\\TP\\Mix\\t"+i+"+"+j+".png");
+						Image CTscaled = image2.getImage().getScaledInstance(700,600, Image.SCALE_DEFAULT);
+						ImageIcon CTscaledImage = new ImageIcon(CTscaled);
+						CTImage.add(CTscaledImage);
+						}
+					}
+				}
+			}
+		C = new JLabel(CImage.get(0));
+		C.setSize(500,600);
+		C.setLocation(200,100);
+		CT = new JLabel(CTImage.get(0));
+		CT.setSize(1100,600);
+		CT.setLocation(500,100);
+		C.setVisible(false);
+		CT.setVisible(false);
+		add(C);
+		add(CT);
+	}
+	class Menu implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			CImage.clear();
+			CTImage.clear();
+			a=r.nextInt(19)+1;
+			b=r.nextInt(19)+1;
+			Job.setVisible(true);
+			JobT.setVisible(true);
+			Item.setVisible(true);
+			ItemT.setVisible(true);
+			Next.setVisible(true);
+			C.setVisible(false);
+			CT.setVisible(false);
+			for(int i=1;i<=15;i++) {
+				for(int j=1;j<=20;j++) {
+					if(i==a+1) {
+						if(j==b+1) {
+						ImageIcon image = new ImageIcon("D:\\TP\\Mix\\"+i+"+"+j+".png");
+						Image Cscaled = image.getImage().getScaledInstance(500, 600, Image.SCALE_DEFAULT);
+						ImageIcon CscaledImage = new ImageIcon(Cscaled);
+						CImage.add(CscaledImage);
+						ImageIcon image2 = new ImageIcon("D:\\TP\\Mix\\t"+i+"+"+j+".png");
+						Image CTscaled = image2.getImage().getScaledInstance(700,600, Image.SCALE_DEFAULT);
+						ImageIcon CTscaledImage = new ImageIcon(CTscaled);
+						CTImage.add(CTscaledImage);
+						}
+					}
+				}
+			}
+			C.setIcon(CImage.get(0));
+			CT.setIcon(CTImage.get(0));
+			Job.setIcon(JobImage.get(a));
+			JobT.setIcon(JobTImage.get(a));
+			Item.setIcon(ItemImage.get(b));
+			ItemT.setIcon(ItemTImage.get(b));
+			
+			Menu.setVisible(false);
+			
+			win.change("main");
+		}
+	}
+	class Next implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			Job.setVisible(false);
+			JobT.setVisible(false);
+			Item.setVisible(false);
+			ItemT.setVisible(false);
+			Next.setVisible(false);
+			C.setVisible(true);
+			CT.setVisible(true);
+			Menu.setVisible(true);
+			
+	}
+}
+}

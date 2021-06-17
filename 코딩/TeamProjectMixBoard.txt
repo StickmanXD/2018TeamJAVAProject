@@ -1,0 +1,54 @@
+import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.*;
+
+@SuppressWarnings("serial")
+public class JPanelMixBoard extends JPanel {
+	private JPanelTop win;
+	private JButton back;
+	private ImageIcon Bimage = new ImageIcon("D:\\TP\\ETC\\왼쪽버튼.png");
+	private ImageIcon image = new ImageIcon("D:\\TP\\ETC\\나머지배경화면.png");
+	private Image imagescale = image.getImage().getScaledInstance(1920,1040, Image.SCALE_DEFAULT);
+	private ImageIcon image2 = new ImageIcon(imagescale);
+	public void paintComponent(Graphics g) {
+		for(int i=0;i<=26000;i+=1040) g.drawImage(image2.getImage(), 0,i,null);
+		setOpaque(false);
+		super.paintComponent(g);
+	}
+	private ArrayList<ImageIcon> MixBoard = new ArrayList<>();
+	public JPanelMixBoard(JPanelTop win) {
+		this.win=win;
+		setLayout(new GridLayout(80, 7));
+		for(int i=1;i<=20;i++) {
+			for(int j=1;j<=20;j++) {
+					ImageIcon image = new ImageIcon("D:\\TP\\Mix\\"+i+"+"+j+".png");
+					Image Cscaled = image.getImage().getScaledInstance(225,325, Image.SCALE_DEFAULT);
+					ImageIcon CscaledImage = new ImageIcon(Cscaled);
+					MixBoard.add(CscaledImage);
+					}
+				}
+		for(int i=0;i<MixBoard.size();i++) {
+			JLabel board=new JLabel(MixBoard.get(i));board.setSize(225,325);
+			add(board);
+		}
+		back = new JButton(Bimage);
+		back.setLayout(null);
+		back.setLocation(1750,100);
+		back.setSize(200, 100);
+		back.addActionListener(new Menu());
+		back.setBorderPainted(false);
+		back.setFocusPainted(false);
+		back.setContentAreaFilled(false);
+		add(back);
+	}
+	class Menu implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			win.change("book");
+		}
+	}
+}

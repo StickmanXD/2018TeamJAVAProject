@@ -1,0 +1,273 @@
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.io.File;
+import java.io.IOException;
+
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.*;
+
+@SuppressWarnings("serial")
+class JPanelOption extends JPanel  {
+	private JButton Menu;
+	private JPanelTop win;
+	private ButtonGroup group;
+	private JRadioButton mute,unmute;
+	private JButton BGM1,BGM2,BGM3,BGM4,BGM5,BGM6;
+	private ImageIcon menuBimage = new ImageIcon("D:\\TP\\ETC\\menu.png");
+	private ImageIcon B1Image = new ImageIcon("D:\\TP\\ETC\\BGM\\bgm1.png");
+	private Image BGM1scaled = B1Image.getImage().getScaledInstance(200,120, Image.SCALE_DEFAULT);
+	private ImageIcon BGM1Image = new ImageIcon(BGM1scaled);
+	private ImageIcon B2Image = new ImageIcon("D:\\TP\\ETC\\BGM\\bgm2.png");
+	private Image BGM2scaled = B2Image.getImage().getScaledInstance(200,120, Image.SCALE_DEFAULT);
+	private ImageIcon BGM2Image = new ImageIcon(BGM2scaled);
+	private ImageIcon B3Image = new ImageIcon("D:\\TP\\ETC\\BGM\\bgm3.png");
+	private Image BGM3scaled = B3Image.getImage().getScaledInstance(200,120, Image.SCALE_DEFAULT);
+	private ImageIcon BGM3Image = new ImageIcon(BGM3scaled);
+	private ImageIcon B4Image = new ImageIcon("D:\\TP\\ETC\\BGM\\bgm4.png");
+	private Image BGM4scaled = B4Image.getImage().getScaledInstance(200,120, Image.SCALE_DEFAULT);
+	private ImageIcon BGM4Image = new ImageIcon(BGM4scaled);
+	private ImageIcon B5Image = new ImageIcon("D:\\TP\\ETC\\BGM\\bgm5.png");
+	private Image BGM5scaled = B5Image.getImage().getScaledInstance(200,120, Image.SCALE_DEFAULT);
+	private ImageIcon BGM5Image = new ImageIcon(BGM5scaled);
+	private ImageIcon B6Image = new ImageIcon("D:\\TP\\ETC\\BGM\\bgm6.png");
+	private Image BGM6scaled = B6Image.getImage().getScaledInstance(200,120, Image.SCALE_DEFAULT);
+	private ImageIcon BGM6Image = new ImageIcon(BGM6scaled);
+	private ImageIcon image = new ImageIcon("D:\\TP\\ETC\\bgm¹è°æ.png");
+	private Image imagescale = image.getImage().getScaledInstance(1920,1040, Image.SCALE_DEFAULT);
+	private ImageIcon image2 = new ImageIcon(imagescale);
+	public void paintComponent(Graphics g) {
+		g.drawImage(image2.getImage(), 0,0,null);
+		setOpaque(false);
+		super.paintComponent(g);
+	}
+	private File bgm = new File("D:\\TP\\ETC\\BGM\\BGM1.wav");
+	private AudioInputStream stream;
+	private AudioFormat format;
+	private DataLine.Info info;
+	private Clip clip;
+	public JPanelOption(JPanelTop win) throws Exception, IOException {
+		this.win=win;
+		setLayout(null);
+		
+		stream = AudioSystem.getAudioInputStream(bgm);
+		format = stream.getFormat();
+		info = new DataLine.Info(Clip.class, format);
+		clip = (Clip)AudioSystem.getLine(info);
+		clip.open(stream);
+		clip.start();
+		
+		BGM1=new JButton(BGM1Image);
+		BGM1.setLocation(1050,205);
+		BGM1.setSize(200,120);
+		BGM1.addActionListener(new BGM1());
+		
+		BGM2=new JButton(BGM2Image);
+		BGM2.setLocation(1300,330);
+		BGM2.setSize(200,120);
+		BGM2.addActionListener(new BGM2());
+		
+		BGM3=new JButton(BGM3Image);
+		BGM3.setLocation(1050,455);
+		BGM3.setSize(200,120);
+		BGM3.addActionListener(new BGM3());
+		
+		BGM4=new JButton(BGM4Image);
+		BGM4.setLocation(1300,580);
+		BGM4.setSize(200,120);
+		BGM4.addActionListener(new BGM4());
+		
+		BGM5=new JButton(BGM5Image);
+		BGM5.setLocation(1050,705);
+		BGM5.setSize(200,120);
+		BGM5.addActionListener(new BGM5());
+		
+		BGM6=new JButton(BGM6Image);
+		BGM6.setLocation(1300,830);
+		BGM6.setSize(200,120);
+		BGM6.addActionListener(new BGM6());
+		
+		group= new ButtonGroup();
+		unmute = new JRadioButton("À½¾Ç ÄÑ±â");
+		unmute.setSize(120,80);
+		unmute.setLocation(1650,700);
+		unmute.setSelected(true);
+		unmute.addItemListener(new unmute());
+		
+		mute = new JRadioButton("À½¾Ç ²ô±â");
+		mute.setSize(120,80);
+		mute.setLocation(1650,750);
+		mute.setSelected(false);
+		mute.addItemListener(new mute());
+		
+		group.add(mute);
+		group.add(unmute);
+		Menu=new JButton(menuBimage);
+		Menu.setSize(200,80);
+		Menu.setLocation(50,800);
+		Menu.addActionListener(new Menu());
+		Menu.setBorderPainted(false);
+		Menu.setFocusPainted(false);
+		Menu.setContentAreaFilled(false);
+		add(mute);
+		add(unmute);
+		add(BGM1);
+		add(BGM2);
+		add(BGM3);
+		add(BGM4);
+		add(BGM5);
+		add(BGM6);
+		add(Menu);
+	}
+	class Menu implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			win.change("main");
+		}
+	}
+	class mute implements ItemListener{
+		public void itemStateChanged(ItemEvent e) {
+			clip.stop();
+			BGM1.setVisible(false);
+			BGM2.setVisible(false);
+			BGM3.setVisible(false);
+			BGM4.setVisible(false);
+			BGM5.setVisible(false);
+			BGM6.setVisible(false);
+		}
+	}
+	class unmute implements ItemListener{
+		public void itemStateChanged(ItemEvent e) {
+			clip.start();
+			BGM1.setVisible(true);
+			BGM2.setVisible(true);
+			BGM3.setVisible(true);
+			BGM4.setVisible(true);
+			BGM5.setVisible(true);
+			BGM6.setVisible(true);
+		}
+	}
+	class BGM1 implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			clip.stop();
+			bgm = new File("D:\\TP\\ETC\\BGM\\BGM1.wav");
+			try {
+				stream = AudioSystem.getAudioInputStream(bgm);
+				format = stream.getFormat();
+				info = new DataLine.Info(Clip.class, format);
+				clip = (Clip)AudioSystem.getLine(info);
+				clip.open(stream);
+				clip.start();
+				} catch (UnsupportedAudioFileException | IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (LineUnavailableException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+		}
+	}class BGM2 implements ActionListener{
+		public void actionPerformed(ActionEvent e)  {
+			clip.stop();
+			bgm = new File("D:\\TP\\ETC\\BGM\\BGM2.wav");
+			try {
+			stream = AudioSystem.getAudioInputStream(bgm);
+			format = stream.getFormat();
+			info = new DataLine.Info(Clip.class, format);
+			clip = (Clip)AudioSystem.getLine(info);
+			clip.open(stream);
+			clip.start();
+			} catch (UnsupportedAudioFileException | IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (LineUnavailableException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+	}class BGM3 implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			clip.stop();
+			bgm = new File("D:\\TP\\ETC\\BGM\\BGM3.wav");
+			try {
+				stream = AudioSystem.getAudioInputStream(bgm);
+				format = stream.getFormat();
+				info = new DataLine.Info(Clip.class, format);
+				clip = (Clip)AudioSystem.getLine(info);
+				clip.open(stream);
+				clip.start();
+				} catch (UnsupportedAudioFileException | IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (LineUnavailableException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+		}
+	}class BGM4 implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			clip.stop();
+			bgm = new File("D:\\TP\\ETC\\BGM\\BGM4.wav");
+			try {
+				stream = AudioSystem.getAudioInputStream(bgm);
+				format = stream.getFormat();
+				info = new DataLine.Info(Clip.class, format);
+				clip = (Clip)AudioSystem.getLine(info);
+				clip.open(stream);
+				clip.start();
+				} catch (UnsupportedAudioFileException | IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (LineUnavailableException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+		}
+	}class BGM5 implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			clip.stop();
+			bgm = new File("D:\\TP\\ETC\\BGM\\BGM5.wav");
+			try {
+				stream = AudioSystem.getAudioInputStream(bgm);
+				format = stream.getFormat();
+				info = new DataLine.Info(Clip.class, format);
+				clip = (Clip)AudioSystem.getLine(info);
+				clip.open(stream);
+				clip.start();
+				} catch (UnsupportedAudioFileException | IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (LineUnavailableException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+		}
+	}class BGM6 implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			clip.stop();
+			bgm = new File("D:\\TP\\ETC\\BGM\\BGM6.wav");
+			try {
+				stream = AudioSystem.getAudioInputStream(bgm);
+				format = stream.getFormat();
+				info = new DataLine.Info(Clip.class, format);
+				clip = (Clip)AudioSystem.getLine(info);
+				clip.open(stream);
+				clip.start();
+				} catch (UnsupportedAudioFileException | IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (LineUnavailableException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+		}
+	}
+}
