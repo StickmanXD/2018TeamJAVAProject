@@ -1,0 +1,56 @@
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+@SuppressWarnings("serial")
+class JPanelJobBoard extends JPanel   {
+	private int x=0,y=0;
+	private JPanelTop win;
+	private JButton back;
+	private ImageIcon Backimage = new ImageIcon("D:\\TP\\ETC\\왼쪽버튼.png");
+	private ImageIcon image = new ImageIcon("D:\\TP\\ETC\\나머지배경화면.png");
+	private Image imagescale = image.getImage().getScaledInstance(1920,1040, Image.SCALE_DEFAULT);
+	private ImageIcon image2 = new ImageIcon(imagescale);
+	public void paintComponent(Graphics g) {
+		g.drawImage(image2.getImage(), 0,0,null);
+		setOpaque(false);
+		super.paintComponent(g);
+	}
+	private ArrayList<ImageIcon> JobBoard = new ArrayList<>();
+	public JPanelJobBoard(JPanelTop win){
+		this.win=win;
+		setLayout(null);
+		
+		for(int i = 1; i <=20; i++) {
+			ImageIcon image = new ImageIcon("D:\\TP\\Job\\"+i+".png");
+			Image scaledimage = image.getImage().getScaledInstance(225,325,Image.SCALE_DEFAULT);
+			ImageIcon scaledimageIcon = new ImageIcon(scaledimage);
+			JobBoard.add(scaledimageIcon);
+		}
+		for(int i=0;i<JobBoard.size();i++) {
+			JLabel board=new JLabel(JobBoard.get(i));board.setSize(225,325);board.setLocation(x,y);
+			x+=225;if(x>=1800) { y+=325; x=0; if(y>500) x=300;}
+			add(board);
+		}
+		back = new JButton(Backimage);
+		back.setLocation(40,800);
+		back.setSize(300, 200);
+		back.addActionListener(new Back());
+		back.setBorderPainted(false);
+		back.setFocusPainted(false);
+		back.setContentAreaFilled(false);
+		add(back);
+	}
+	class Back implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			win.change("book");
+		}
+	}
+}

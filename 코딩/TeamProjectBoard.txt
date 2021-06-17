@@ -1,0 +1,107 @@
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
+
+@SuppressWarnings("serial")
+class JPanelBoard extends JPanel  {
+	private JButton Menu,JB,IB,MB;
+	private JPanelTop win;
+	private JLabel JBimage,IBimage,MBimage;
+	private ImageIcon menuBimage = new ImageIcon("D:\\TP\\ETC\\menu.png");
+	private ImageIcon mixBimage = new ImageIcon("D:\\TP\\ETC\\조합이미지.png");
+	private ImageIcon itemBimage = new ImageIcon("D:\\TP\\ETC\\특성이미지.png");
+	private ImageIcon jobBimage = new ImageIcon("D:\\TP\\ETC\\직업이미지.png");
+	private ImageIcon image = new ImageIcon("D:\\TP\\ETC\\나머지배경화면.png");
+	private Image imagescale = image.getImage().getScaledInstance(1920,1040, Image.SCALE_DEFAULT);
+	private ImageIcon image2 = new ImageIcon(imagescale);
+	private ImageIcon Iimage = new ImageIcon("D:\\TP\\ETC\\특성카드뒷면.png");
+	private Image Itemscaled = Iimage.getImage().getScaledInstance(250, 350, Image.SCALE_DEFAULT);
+	private ImageIcon ItemscaledimageIcon = new ImageIcon(Itemscaled);
+	private ImageIcon Jimage = new ImageIcon("D:\\TP\\ETC\\직업카드뒷면.png");
+	private Image Jobscaled = Jimage.getImage().getScaledInstance(250, 350, Image.SCALE_DEFAULT);
+	private ImageIcon JobscaledimageIcon = new ImageIcon(Jobscaled);
+	private ImageIcon Mimage = new ImageIcon("D:\\TP\\ETC\\조합뒷면.png");
+	private Image Mixscaled = Mimage.getImage().getScaledInstance(250, 350, Image.SCALE_DEFAULT);
+	private ImageIcon MixscaledimageIcon = new ImageIcon(Mixscaled);
+	public void paintComponent(Graphics g) {
+		g.drawImage(image2.getImage(), 0,0,null);
+		setOpaque(false);
+		super.paintComponent(g);
+	}
+	public JPanelBoard(JPanelTop win) {
+		this.win=win;
+		setLayout(null);
+		JBimage = new JLabel(JobscaledimageIcon);
+		JBimage.setSize(250, 350);
+		JBimage.setLocation(600,400);
+		
+		IBimage = new JLabel(ItemscaledimageIcon);
+		IBimage.setSize(250, 350);
+		IBimage.setLocation(950,400);
+		
+		MBimage = new JLabel(MixscaledimageIcon);
+		MBimage.setSize(250, 350);
+		MBimage.setLocation(1300,400);
+		
+		JB=new JButton(jobBimage);
+		JB.setSize(250,80);
+		JB.setLocation(600,300);
+		JB.addActionListener(new Job());
+		JB.setBorderPainted(false);
+		JB.setFocusPainted(false);
+		JB.setContentAreaFilled(false);
+		
+		IB=new JButton(itemBimage);
+		IB.setSize(250,80);
+		IB.setLocation(950,300);
+		IB.addActionListener(new Item());
+		IB.setBorderPainted(false);
+		IB.setFocusPainted(false);
+		IB.setContentAreaFilled(false);
+		
+		MB=new JButton(mixBimage);
+		MB.setSize(250,80);
+		MB.setLocation(1300,300);
+		MB.addActionListener(new Mix());
+		MB.setBorderPainted(false);
+		MB.setFocusPainted(false);
+		MB.setContentAreaFilled(false);
+		
+		Menu=new JButton(menuBimage);
+		Menu.setSize(200,80);
+		Menu.setLocation(50,800);
+		Menu.addActionListener(new Menu());
+		Menu.setBorderPainted(false);
+		Menu.setFocusPainted(false);
+		Menu.setContentAreaFilled(false);
+		add(Menu);
+		add(JB);
+		add(JBimage);
+		add(IB);
+		add(IBimage);
+		add(MB);
+		add(MBimage);
+	}
+	class Job implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			win.change("JB");
+		}
+	}
+	class Item implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			win.change("IB");
+		}
+	}
+	class Mix implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			win.change("MB");
+		}
+	}
+	class Menu implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			win.change("main");
+		}
+	}
+}

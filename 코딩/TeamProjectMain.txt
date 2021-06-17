@@ -1,0 +1,91 @@
+import java.io.IOException;
+
+import javax.swing.*;
+
+@SuppressWarnings("serial")
+class JPanelTop extends JFrame {
+	public JPanelMain main = null;
+	public JPanelJob job = null;
+	public JPanelItem item = null;
+	public JPanelResult result = null;
+	public JPanelBoard book = null;
+	public JPanelRule rule = null;
+	public JPanelOption option = null;
+	public JPanelJobBoard jobBoard =null;
+	public JPanelItemBoard itemBoard =null;
+	public JPanelMixBoard mixBoard =null;
+	private JScrollPane MixScrollbar = new JScrollPane(mixBoard);
+
+	public void change(String panelName) {
+		if(panelName.equals("main")) {
+			getContentPane().removeAll();
+			getContentPane().add(main);
+			revalidate();
+			repaint();
+		} else if(panelName.equals("start")){
+			getContentPane().removeAll();
+			getContentPane().add(job);
+			revalidate();
+			repaint();
+		} else if(panelName.equals("second")){
+			getContentPane().removeAll();
+			getContentPane().add(item);
+			revalidate();
+			repaint();
+		} else if(panelName.equals("result")) {
+			getContentPane().removeAll();
+			getContentPane().add(result);
+			revalidate();
+			repaint();
+		} else if(panelName.equals("book")) {
+			getContentPane().removeAll();
+			getContentPane().add(book);
+			revalidate();
+			repaint();
+		}else if(panelName.equals("JB")) {
+			getContentPane().removeAll();
+			getContentPane().add(jobBoard);
+			revalidate();
+			repaint();
+		}else if(panelName.equals("IB")) {
+			getContentPane().removeAll();
+			getContentPane().add(itemBoard);
+			revalidate();
+			repaint();
+		} else if(panelName.equals("MB")) {
+			getContentPane().removeAll();
+			getContentPane().add(MixScrollbar);
+			revalidate();
+			repaint();
+		} else if(panelName.equals("rule")){
+			getContentPane().removeAll();
+			getContentPane().add(rule);
+			revalidate();
+			repaint();
+		}else if(panelName.equals("option")){
+			getContentPane().removeAll();
+			getContentPane().add(option);
+			revalidate();
+			repaint();
+		}
+	}
+	public static void main(String[] args) throws IOException, Exception {
+	JPanelTop win = new JPanelTop();
+	win.setTitle("재미로 보는 운세");
+	win.main=new JPanelMain(win); 
+	win.job=new JPanelJob(win);
+	win.item=new JPanelItem(win);
+	win.result=new JPanelResult(win);
+	win.book=new JPanelBoard(win);
+	win.jobBoard=new JPanelJobBoard(win);
+	win.itemBoard=new JPanelItemBoard(win);
+	win.MixScrollbar=new JScrollPane (new JPanelMixBoard(win));
+	win.rule=new JPanelRule(win);
+	win.option=new JPanelOption(win);
+
+	win.add(win.main);
+	win.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	win.setSize(1920,1040);
+	win.setVisible(true);
+	}
+}

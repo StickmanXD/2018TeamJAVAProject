@@ -1,0 +1,32 @@
+@SuppressWarnings("serial")
+public class JPanelRule extends JPanel{
+	private JPanelTop win;
+	
+	private ImageIcon menuBimage = new ImageIcon("D:\\TP\\ETC\\menu.png");
+	private ImageIcon image = new ImageIcon("D:\\TP\\ETC\\ruleImage.png");
+	private Image imagescale = image.getImage().getScaledInstance(1920,1020, Image.SCALE_DEFAULT);
+	private ImageIcon image2 = new ImageIcon(imagescale);
+	private JButton Menu;
+	public void paintComponent(Graphics g) {
+		g.drawImage(image2.getImage(), 0,0,null);
+		setOpaque(false);
+		super.paintComponent(g);
+	}
+	public JPanelRule(JPanelTop win) {
+		this.win=win;
+		setLayout(null);
+		Menu=new JButton(menuBimage);
+		Menu.setSize(200,80);
+		Menu.setLocation(50,800);
+		Menu.addActionListener(new Menu());
+		Menu.setBorderPainted(false);
+		Menu.setFocusPainted(false);
+		Menu.setContentAreaFilled(false);
+		add(Menu);
+	}
+	class Menu implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			win.change("main");
+		}
+	}
+}

@@ -1,0 +1,114 @@
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
+
+@SuppressWarnings("serial")
+class JPanelJob extends JPanel {
+	private JPanelTop win;
+	private JLabel Effect;
+	private JButton Next,B1,B2,B3,B4;
+	private ImageIcon NextImage1 = new ImageIcon("D:\\TP\\ETC\\오른쪽버튼.png");
+	private Image NextImagescaledimage = NextImage1.getImage().getScaledInstance(300, 200, Image.SCALE_DEFAULT);
+	private ImageIcon NextImage= new ImageIcon(NextImagescaledimage);
+	private ImageIcon Bimage = new ImageIcon("D:\\TP\\ETC\\직업카드뒷면.png");
+	private Image scaledimage = Bimage.getImage().getScaledInstance(250, 350, Image.SCALE_DEFAULT);
+	private ImageIcon scaledimageIcon = new ImageIcon(scaledimage);
+	private int cnt1=0,cnt2=0,cnt3=0,cnt4=0;
+	private ImageIcon url = new ImageIcon("D:\\TP\\Effect\\a.gif");
+	private Image backside = url.getImage().getScaledInstance(300,400, Image.SCALE_DEFAULT);
+	private ImageIcon BEffect = new ImageIcon(backside);
+	private ImageIcon image = new ImageIcon("D:\\TP\\ETC\\직업카드배경.png");
+	private Image imagescale = image.getImage().getScaledInstance(1920,1040, Image.SCALE_DEFAULT);
+	private ImageIcon image2 = new ImageIcon(imagescale);
+	public void paintComponent(Graphics g) {
+		g.drawImage(image2.getImage(), 0,0,null);
+		setOpaque(false);
+		super.paintComponent(g);
+	}
+	public JPanelJob(JPanelTop win) {
+		setLayout(null);
+		this.win=win;
+		
+		Effect = new JLabel(BEffect);
+		Effect.setSize(300,400);
+		url.setImageObserver(Effect);
+		Effect.setVisible(false);
+		
+		B1 = new JButton(scaledimageIcon);
+		B1.setLocation(150,100);
+		B1.setSize(250,350);
+		B1.addActionListener(new choice1());
+		
+		
+		B2 = new JButton(scaledimageIcon);
+		B2.setLocation(600,100);
+		B2.setSize(250,350);
+		B3 = new JButton(scaledimageIcon);
+		B3.setLocation(1050,100);
+		B3.setSize(250,350);
+		B4 = new JButton(scaledimageIcon);
+		B4.setLocation(1500,100);
+		B4.setSize(250,350);
+		
+		B2.addActionListener(new choice2());
+		B3.addActionListener(new choice3());
+		B4.addActionListener(new choice4());
+		add(Effect);
+		add(B1);
+		add(B2);
+		add(B3);
+		add(B4);
+		Next = new JButton(NextImage);
+		Next.setLocation(1500,600);
+		Next.setEnabled(false);
+		Next.setSize(300, 200);
+		Next.addActionListener(new Next());
+		Next.setBorderPainted(false);
+		Next.setFocusPainted(false);
+		Next.setContentAreaFilled(false);
+		add(Next);
+		
+	}
+	class choice1 implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			cnt1++;cnt2=0;cnt3=0;cnt4=0;
+			if(cnt1%2!=0) Next.setEnabled(true);
+			else Next.setEnabled(false);
+			if(cnt1%2!=0) {Effect.setVisible(true); Effect.setLocation(120,80);}
+			else Effect.setVisible(false);
+		}
+	}class choice2 implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			cnt2++;cnt1=0;cnt3=0;cnt4=0;
+			if(cnt2%2!=0) Next.setEnabled(true);
+			else Next.setEnabled(false);
+			if(cnt2%2!=0){Effect.setVisible(true); Effect.setLocation(570,80);}
+			else Effect.setVisible(false);
+		}
+	}class choice3 implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			cnt3++;cnt1=0;cnt2=0;cnt4=0;
+			if(cnt3%2!=0) Next.setEnabled(true);
+			else Next.setEnabled(false);
+			if(cnt3%2!=0){Effect.setVisible(true); Effect.setLocation(1020,80);}
+			else Effect.setVisible(false);
+		}
+	}class choice4 implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			cnt4++;cnt1=0;cnt2=0;cnt3=0;
+			if(cnt4%2!=0) Next.setEnabled(true);
+			else Next.setEnabled(false);
+			if(cnt4%2!=0){Effect.setVisible(true); Effect.setLocation(1470,80);}
+			else Effect.setVisible(false);
+		}
+	}
+	class Next implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			cnt1=0;cnt2=0;cnt3=0;cnt4=0;
+			Effect.setVisible(false);Next.setEnabled(false);
+			win.change("second");
+		}
+	}
+}
